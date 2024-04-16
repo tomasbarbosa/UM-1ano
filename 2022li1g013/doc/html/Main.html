@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Main</title><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><span class="caption empty">&nbsp;</span><ul class="links" id="page-menu"><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul></div><div id="content"><div id="module-header"><table class="info"><tr><th valign="top">Copyright</th><td>Lu&#237;s Cunha &lt;a104613@alunos.uminho.pt&gt;<br />Tom&#225;s Barbosa &lt;a104532@alunos.uminho.pt&gt;</td></tr><tr><th>Safe Haskell</th><td>None</td></tr></table><p class="caption">Main</p></div><div id="description"><p class="caption">Description</p><div class="doc"><p>M&#243;dulo para a realiza&#231;&#227;o da Main do projeto de LI1 2022/23.</p></div></div><div id="synopsis"><details id="syn"><summary>Synopsis</summary><ul class="details-toggle" data-details-id="syn"><li class="src short"><a href="#v:main">main</a> :: IO ()</li></ul></details></div><div id="interface"><h1>Documentation</h1><div class="top"><p class="src"><a id="v:main" class="def">main</a> :: IO () <a href="#v:main" class="selflink">#</a></p><div class="doc"><p>A fun&#231;&#227;o <em><code><strong>main</strong></code></em>  serve para executar o Jogo</p><p>A fun&#231;&#227;o pode ser definida da seguinte forma : </p><pre>main :: IO () 
+main = do 
+  riop &lt;- loadBMP &quot;Imagens/rio.bmp&quot;
+  estradap &lt;- loadBMP &quot;Imagens/estrada.bmp&quot;
+  relvap &lt;- loadBMP &quot;Imagens/relva.bmp&quot;
+  tronco1p &lt;- loadBMP &quot;Imagens/tronco1.bmp&quot;
+  tronco2p &lt;- loadBMP &quot;Imagens/tronco2.bmp&quot;
+  carro1p &lt;- loadBMP &quot;Imagens/carro1.bmp&quot;
+  carro2p &lt;- loadBMP &quot;Imagens/carro2.bmp&quot;
+  arvorep &lt;- loadBMP &quot;Imagens/arvore1.bmp&quot;
+  asasfechadasp &lt;- loadBMP &quot;Imagens/asasfechadas.bmp&quot;
+  jogarp &lt;- loadBMP  &quot;Imagens/jogar.bmp&quot;
+  sairp &lt;- loadBMP  &quot;Imagens/sair.bmp&quot;
+  jogarbrancop &lt;- loadBMP  &quot;Imagens/jogarbranco.bmp&quot;
+  sairbrancop &lt;- loadBMP  &quot;Imagens/sairbranco.bmp&quot;
+  let images = [scale 0.5 0.5 riop,scale 0.5 0.5 estradap, scale 0.5 0.5 relvap, scale 0.5 0.5 tronco1p, scale 0.5 0.5 tronco2p, scale 0.5 0.5 carro1p, scale 0.5 0.5 carro2p, scale 0.5 0.5 arvorep, scale 0.5 0.5 asasfechadasp, scale 3 3 jogarp, scale 3 3 sairp, scale 3 3 jogarbrancop, scale 3 3 sairbrancop]
+  play window background fr (initialState images) drawState event time
+
+</pre></div></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.23.0</p></div></body></html>

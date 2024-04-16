@@ -1,0 +1,18 @@
+map
+filter
+função anónima
+---
+flip
+.
+curry
+uncurry
+zipWith
+takeWhile
+dropWhile
+span (takeWhile,dropWhile)
+break
+foldr
+foldl
+--
+concatMap faz um f para uma lista de listas e devolve uma lista
+

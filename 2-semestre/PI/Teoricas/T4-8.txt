@@ -1,0 +1,480 @@
+------------------------------- AULA 4 -------------------------------
+
+Que expressão usar para calcular fatorial?
+
+int fact(int n) {
+    int r = 1;
+    while (n>0) r *= n--; 
+    return;
+}
+--------------
+
+--| Ciclo For 
+
+-> inicialização; while (condição) {comando; iteração}
+
+-> for (inicialização; condição; iteração) comando;
+
+Ex : calcular fatorial através de um ciclo for
+
+int fact(int n) {
+    int r = 1;
+    for (int i = 1; i<=n; i++){
+       r *= i; 
+    }
+    return r; 
+}
+
+    - podemos colocar mais do que uma variavél num ciclo for, utilizando virgulas para separar
+    - se só tiver um  ponto e virgula ; é porque não incrementa nada
+---------------
+
+--| Break e Continue
+
+-> O comando break termina a execução de um ciclo
+
+    - A execução continua no primeiro comando depois do ciclo
+
+-> O comando continue termina a iteração atual
+
+    - Num ciclo while ou do-while a execução continua no teste
+
+    - Num ciclo for a execução continua no comando de incremento
+
+Ex : Sorteio de números entre 0 e > 100
+
+#include <stdio.h>
+#include <stdio.h>
+
+int main() {
+    int r;
+    while (1) {
+        r = rand();
+        if ( r == 0) break;
+        if (r > 100) continue;
+        printf("%d\n",r);
+    }
+    return 0;
+}
+
+--| Operadores lógicos bitwise
+
+-> ~ (negação) - inverte os bits (0->1/1->0)
+-> & (conjunção) - "e" bit a bit (caso os dois sejam 1 então escreve 1, caso contrário escreve 0)
+-> | (disjunção) - "ou" bit a bit (caso um deles seja 1, então escreve 1, caso contrário escreve 0)
+-> ^ (disjunção exclusiva) - "ou exclusivo" bit a bit (1 ou 1 -> 0 / 1 ou 0 -> 1)
+-> >> (shift para a direita) - adiciona 0's e move n casas para a direita (000101011010)
+-> << (shift para a esquerda) - adiciona 0's e move n casas para a esquerda (101011010000)
+
+------------------------------- AULA 5 -------------------------------
+
+--| Gestão de memória
+
+-> Automática 
+
+    - Memória reservada e libertada automaticamente na stack durante a execução
+    - Variáveis locais e parâmetros
+
+-> Dinâmica
+
+    - Memória reservada e libertada explicitamente na heap (memória gerida pelo utilizador) durante a execução
+
+-> Estática
+
+    - Memória reservada em tempo de compilação e libertada apenas quando o programa termina
+    - Variáveis glovais e static
+
+--| Passagem de argumentos
+
+-> Passagem por valor
+
+    - valor dos argumentos copiada para os parâmetros da função
+    - modificações nos parâmetros não afetam o argumento
+
+-> Passagem por referência
+
+    - em C temos sempre passagem por valor
+    - a passagem por referência pode ser simulada passando explicitamente o endereço (apontador) de memória do argumento
+
+    Declaração de apontadores :
+
+        tipo *id;
+    tipo *id0, *id1, ...;
+        void *id;
+
+    Operadores de referência :
+
+    - Operador --> *expr 
+        Significado : Conteúdo do endereço expr
+
+    - Operador --> &var 
+        Significado : Endereço de var
+
+
+------------------------------- AULA 6 -------------------------------
+
+--| Função scanf - nos pp
+
+
+-> Contar caracteres
+
+#include <stdio.h>
+
+int main() {
+    int n= 0;
+    char c;
+    while ((c=getchar()) != '\n') n++;
+    printf("%d\n",n);
+    return 0;
+}
+
+
+--| Diretiva #define
+
+#define id expr
+#define id(id1,...,idn) expr
+
+
+Ex: Sortear N inteiros diferentes
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 10 \\ vai sortear 10 numeros diferentes
+
+int existe(int x, int a[N], int n){
+    for (int i = 0; i<n> i++)
+        if (a[i] == x) return 1;
+    return 0;
+
+}
+
+
+int main(){
+    int i = 0, x, p[N];
+    while (i < N) {
+        x = rand();
+        if (existe(x,p,i)) continue;
+        printf("%d\n", x);
+    }
+    return 0;
+}
+
+--> Sortear N inteiros diferentes
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define N 10
+
+int existe(int x, int a[N], int n){
+    for (int i = 0; i < n; i++){
+        if(a[i] == x) return 1;
+    }
+    return 0;
+}
+
+
+int main() {
+    int i = 0,x, p[N];
+    while(i<N){
+        x = rand();
+        if (existe(x,p,i)) continue;
+        printf("%d\n", x);
+        p[i++] = x;
+    }
+    return 0;
+}
+
+------------------------------- AULA 7 -------------------------------
+
+--| Aritmética de apontadores
+
+- Quando se adiciona ou subtrai uma constante a um apontador, o tamanho do valor apontado é tido em consideração
+
+a = &v
+
+a + n == (char *) a + n*sizeof(v)
+
+
+--| Arrays vs Apontadores 
+
+-> O nome de um array corresponde ao endereço da primeira célula
+
+            a == &(a[0])
+
+    - Quando é passado um array a uma função como argumento, é passado um apontador para a primeira célula
+
+-> O acesso a uma posição de um array é equivalente à diferença de um apontador
+
+            a[i] = *(a+i)
+
+    - Alterações ao array dentro da função afetam o array argumento
+
+    - O tamanho do array no parâmetro é irrelevante
+
+    - Se for necessário, o tamanho tem que ser passado num argumento
+
+--> Função de Pesquisa
+
+int existe(int x, int a[], int n){
+    for(int i = 0; i < n; i++)
+        if (a[i] == x) return 1;
+    return 0;
+}
+
+--> Exemplo com um apontador/pointer
+
+int x,y;
+int *p;
+x = 1; y = 2;
+p = &x;
+y = *p;
+*p = 0;
+
+output -> x = 0 y = 1
+
+
+------------------------------- AULA 8 -------------------------------
+
+--> Exemplo 
+
+Input : a[4]
+
+    int main(){
+        int a[5] = {0,1,2,3,4}
+        int *b = a;
+        b[4] = 5;
+        return 0;
+    
+    }
+
+Output : 5 
+
+b vai ficar com tamanho 4, sem conteudo dentro do array,
+de seguida o b vai ter o valor 5 na posição 4
+
+
+--| Strings
+
+- uma string é um array de caracteres
+- para ser bem formada deve terminar com o caracter '\0'
+
+-> char s[6] = "ola";
+
+s[0] = 'o'
+s[1] = 'l'
+s[2] = 'a'
+s[3] = '\0'
+s[4] = empty
+s[5] = empty
+
+--> calcular o tamanho de uma string
+
+int strlen(char s[]) {
+    int i;
+    for(i = 0; s[i] != '\0';i++);
+    return i;
+}
+
+--> Remover espaços - 50q?
+
+#include <ctype.h>
+
+char *trim(char s[]) {
+    int i = 0;
+    while (s[i] != '\0') {
+        if (isspace(s[i])) delete(s,i);   --> Esta função é pouco eficiente porque vai ao fim da string e puxa tudo para trás
+        else i++;
+
+    }
+    return s;
+}
+
+char s[6]
+
+Input :             Output :
+
+s[0] = empty        s[0] = 'a' 
+s[1] = 'a'          s[1] = empty
+s[2] = empty  ----> s[2] = 'b'
+s[3] = 'b'          s[3] = 'c'
+s[4] = 'c'          s[4] = '\0'
+s[5] = '\0'         s[5] = empty
+
+
+--> Função de cima mais eficiente
+
+#include <ctype.h>
+
+char *trim(char s[]) {
+    int i, j = 0;
+    char t[strlen(s)+1];
+    for(i = 0; s[i] != '\0';i++)
+    if(!isspace(s[i])) {                
+        t[j] = s[i]; j++;
+                                        --> Esta função vai precorrendo a string e à medida que encontra um espaço vai o eliminar 
+    }                                       e puxar o que está na frente para trás
+    t[j] = '\0';
+    for(i = 0; t[i] |= '\0'; i++)
+    s[i] = t[i];
+    s[i] = '\0';
+    return s;
+}
+
+--> Ex Pesquisa linear num array            --->    array ordenado (o resto é igual)
+
+int search(int x, int a[], int n){
+    int i;
+    for(i = 0; i<n && a[i] != x; i++){
+        if (i < n) return 1;                --->    if(i<n && a[i] == x) return 1;
+        else return 0;
+    }
+}
+
+
+------------------------------- AULA 9 --------------------------------
+
+1º parte - Dia Nacional da Defesa
+
+--| Insertion sort
+
+--| Selection sort
+
+--| Bubble sort
+
+2º parte :
+
+
+--| Merge sort
+
+    -um array: [6|1|5|4|3] 
+    -um n = length = 5
+
+    1º divide em 2 metades: [6|1] [5|4|3]
+
+    2º divide em 2 metades: [6] [1] [5|4|3]
+
+    3º ordena [1|6] [5|4|3] 
+
+    4º [1|6] [5] [4] [3] 
+
+    5º [1|3|4|5|6]
+ 
+
+ void msort(int[a], int n){  // ----- pede um array e o comprimento da lista
+    if(n<2) return;  // ----- comprimento do array tem de ser >= 2 para ordenar 
+    int m = n/2; // ----- divide em 2
+    int aux[n]; // ----- vai servir para juntar o array no fim
+    msort(a,m); // ----- recursivamente chama a funçao para ir dividindo o 1º array dividido
+    msort(a+m,n-m); // ----- recursivamente chama a funçao para ir dividindo o 2º array dividido
+    merge(a, m, a+m, n-m, aux); // ----- vai juntar os arrays, sendo que ao juntar ordena
+    copy(aux, a, n);
+ }
+
+
+
+--| Quick sort
+
+    -um array: [6|1|5|4|3] 
+    -um  pivo x = 3
+
+    1º divide em 2 metades onde na primeira vao estar os números menores que x e na esquerda os maiores que x:
+
+    [1] (<) [3] (>) [6|5|4]
+
+    2º [1|3] [6|5|(4)] 
+
+    3º [1|3] [4] [6|(5)] 
+
+    4º [1|3] [4] [5] [6]
+
+    5º [1|3] [4] [5|6]
+
+    6º [1|3] [4|5|6] 
+
+    7º [1|3|4|5|6]
+
+
+    void qsort(int a[], int x){
+        if (n < 2) return; // ----- comprimento do array tem de ser >= 2 para ordenar 
+        int p = partition(a, n-1, a[n-1]); // ----- escolhe um pivo 
+        swap(a, p, n-1); 
+        qsort(a,p);
+        qsort(a+p+1,n-p-1);
+    }
+
+------------------------------- AULA 12 --------------------------------
+
+
+--|Pontos, retangulos e poligonais
+
+Inicialização da struct de um ponto
+
+struct ponto{
+    float x;
+    float y:
+}
+struct rectangulo {
+    struct ponto pt1, pt2;
+};
+
+#define MAX 100
+
+struct poligonal{
+    int tamanho;
+    struct ponto pontos[MAX];
+};
+
+-| Poligonal com lista ligada
+
+int main(){
+    ponto a = {1,5}, b = {2,3};
+    poligonal l;
+    l.cor = GREEN;
+    l.pontos = malloc(sizeof(struct lponto_no));
+    l.pontos -> ponto = a;
+    l.pontos -> prox = malloc(sizeof(struct lponto_no));
+    l.pontos -> prox -> ponto = b;
+    l.pontos -> prox -> prox = NULL;
+    free(l.pontos -> prox);
+    free(l.pontos);
+    return 0;
+}
+
+------------------------------- AULA 18 --------------------------------
+
+
+--| Arvores binárias
+
+
+-| Tamanho de uma árvore:
+
+int size(abin a){
+    int r;
+    if( a == NULL) r = 0;
+    else r = 1 + size(a->esq) + size(a->dir);
+    return r;
+}
+
+
+int main(){
+    abin a = mkroot(3, mkroot(5, NULL, NULL), mkroot(8, NULL, NULL));
+    int r = size(a);
+    return 0;
+}
+
+-------------
+
+abin fromArray(int v[], int N){
+    abin a = NULL;
+    for (int i = 0; i < N; i++) 
+        a = mkroot(v[i],a,NULL);
+        return a;
+}
+
+int main() {
+    int v[] = {5,3,8};
+    abin a = fromSrray(v,3);
+    return 0;
+}

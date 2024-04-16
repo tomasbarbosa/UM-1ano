@@ -1,0 +1,14 @@
+module Tarefa5_2022li1g013_Spec where
+
+import LI12223
+import Tarefa5_2022li1g013
+import Test.HUnit
+
+testsT5 :: Test
+testsT5 = test ["deslizajogo" ~: Jogo (Jogador (0,1)) (Mapa 4 [(Estrada (-2),[Nenhum,Carro,Nenhum,Nenhum]),(Rio (-2),[Tronco,Tronco,Nenhum,Tronco]),(Relva,[Nenhum,Nenhum,Arvore,Arvore])]) ~=? deslizaJogo (Jogo (Jogador (0,0)) (Mapa 4 [(Rio (-2), [Tronco,Tronco,Nenhum,Tronco]),(Relva, [Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3), [Nenhum,Carro,Carro,Nenhum])])) 67,
+                "deslizaJogo" ~: Jogo (Jogador (2,2)) (Mapa 4 [(Relva,[Nenhum,Nenhum,Nenhum,Nenhum]),(Rio (-2),[Tronco,Tronco,Nenhum,Tronco]),(Relva,[Nenhum,Nenhum,Arvore,Arvore])]) ~=? deslizaJogo (Jogo (Jogador (2,1)) (Mapa 4 [(Rio (-2), [Tronco,Tronco,Nenhum,Tronco]),(Relva, [Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3), [Nenhum,Carro,Carro,Nenhum])])) 84,
+                "deslizaJogo" ~: Jogo (Jogador (1,2)) (Mapa 4 [(Estrada 2,[Carro,Nenhum,Nenhum,Carro]),(Relva,[Nenhum,Arvore,Arvore,Nenhum])]) ~=? deslizaJogo (Jogo (Jogador (1,1)) (Mapa 4 [(Relva, [Nenhum,Arvore,Arvore,Nenhum]),(Estrada 1, [Carro,Nenhum,Nenhum,Carro])])) 3,
+                "deslizaJogo" ~: Jogo (Jogador (1,2)) (Mapa 4 [(Estrada (-2),[Nenhum,Nenhum,Nenhum,Carro]),(Relva,[Nenhum,Arvore,Arvore,Nenhum])]) ~=? deslizaJogo (Jogo (Jogador (1,1)) (Mapa 4 [(Relva, [Nenhum,Arvore,Arvore,Nenhum]),(Estrada 1, [Carro,Nenhum,Nenhum,Carro])])) 42,
+                "removeultimalinha" ~: (Mapa 4 [(Rio 3,[Nenhum,Tronco,Tronco,Nenhum]),(Estrada 4,[Nenhum,Carro,Nenhum,Carro]),(Estrada (-1),[Nenhum,Carro,Carro,Carro]),(Estrada 2,[Nenhum,Carro,Nenhum,Nenhum]),(Relva,[Arvore,Nenhum,Arvore,Arvore]),(Estrada 5,[Nenhum,Carro,Carro,Nenhum])]) ~=? removeultimalinha (Mapa 4 [(Rio 3,[Nenhum,Tronco,Tronco,Nenhum]),(Estrada 4,[Nenhum,Carro,Nenhum,Carro]),(Estrada (-1),[Nenhum,Carro,Carro,Carro]),(Estrada 2,[Nenhum,Carro,Nenhum,Nenhum]),(Relva,[Arvore,Nenhum,Arvore,Arvore]),(Estrada 5,[Nenhum,Carro,Carro,Nenhum]),(Estrada (-2),[Carro,Nenhum,Nenhum,Nenhum])]),
+                "removeultimalinha" ~: (Mapa 4 [(Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum])]) ~=? removeultimalinha (Mapa 4 [(Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Relva, [Nenhum,Arvore,Arvore,Nenhum]), (Rio (-2),[Tronco,Nenhum,Nenhum,Nenhum])]) 
+               ]

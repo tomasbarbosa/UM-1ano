@@ -1,0 +1,50 @@
+module Tarefa2_2022li1g013_Spec where
+
+import LI12223
+import Tarefa2_2022li1g013
+import Test.HUnit
+
+testsT2 :: Test
+testsT2 = test ["estendeMapa" ~: (Mapa 4 [(Rio 2,[Nenhum,Nenhum,Tronco,Nenhum]),(Rio (-2),[Tronco,Tronco,Nenhum,Tronco]),(Relva,[Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3),[Nenhum,Carro,Carro,Nenhum])]) ~=? estendeMapa  (Mapa 4 [(Rio (-2), [Tronco,Tronco,Nenhum,Tronco]),(Relva, [Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3), [Nenhum,Carro,Carro,Nenhum])]) 1,
+                "estendeMapa" ~: (Mapa 4 [(Estrada (-2),[Nenhum,Nenhum,Nenhum,Carro]),(Rio (-2),[Tronco,Tronco,Nenhum,Tronco]),(Relva,[Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3),[Nenhum,Carro,Carro,Nenhum])]) ~=? estendeMapa  (Mapa 4 [(Rio (-2), [Tronco,Tronco,Nenhum,Tronco]),(Relva, [Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3), [Nenhum,Carro,Carro,Nenhum])]) 42,
+                "estendeMapa" ~: (Mapa 4 [(Estrada (-2),[Nenhum,Carro,Nenhum,Nenhum]),(Rio (-2),[Tronco,Tronco,Nenhum,Tronco]),(Relva,[Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3),[Nenhum,Carro,Carro,Nenhum])]) ~=? estendeMapa  (Mapa 4 [(Rio (-2), [Tronco,Tronco,Nenhum,Tronco]),(Relva, [Nenhum,Nenhum,Arvore,Arvore]),(Estrada (-3), [Nenhum,Carro,Carro,Nenhum])]) 7,
+                "proximosTerrenosValidos" ~: [Relva, Rio 0] ~=? proximosTerrenosValidos (Mapa 3 [(Estrada 1,[Nenhum,Carro,Nenhum]),(Estrada 1,[Nenhum,Carro,Nenhum]),(Estrada 1,[Nenhum,Carro,Nenhum]),(Estrada 1,[Nenhum,Carro,Nenhum]),(Estrada 1,[Nenhum,Carro,Nenhum]),(Rio 2, [Nenhum,Nenhum,Tronco])]),
+                "proximosTerrenosValidos" ~: [Rio 0, Estrada 0] ~=? proximosTerrenosValidos (Mapa 3 [(Relva,[Arvore,Nenhum,Nenhum]),(Relva,[Arvore,Nenhum,Nenhum]),(Relva,[Arvore,Nenhum,Nenhum]),(Relva,[Arvore,Nenhum,Nenhum]),(Relva,[Arvore,Nenhum,Nenhum]),(Estrada 1,[Nenhum,Carro,Nenhum])]),
+                "proximosTerrenosValidos" ~: [Estrada 0, Relva] ~=? proximosTerrenosValidos (Mapa 3 [(Rio 2, [Nenhum,Nenhum,Tronco]),(Rio 2, [Nenhum,Nenhum,Tronco]),(Rio 2, [Nenhum,Nenhum,Tronco]),(Rio 2, [Nenhum,Nenhum,Tronco]),(Relva,[Arvore,Nenhum,Nenhum])]),
+                "proximosTerrenosValidos" ~: [Relva, Rio 0, Estrada 0] ~=? proximosTerrenosValidos (Mapa 3 [(Estrada 1,[Nenhum,Carro,Nenhum]),(Relva,[Arvore,Nenhum,Nenhum]),(Rio 2, [Nenhum,Nenhum,Tronco])]),
+                "escolheTerreno" ~: Rio 0 ~=? escolheTerreno 4 [Rio 0,Estrada 0],
+                "escolheTerreno" ~: Estrada 0 ~=? escolheTerreno 5 [Rio 0,Estrada 0],
+                "escolheTerreno" ~: Relva ~=? escolheTerreno 6 [Rio 0,Estrada 0,Relva],
+                "randomvelocidade" ~: Relva ~=? randomvelocidade 234 Relva (Rio 3),
+                "randomvelocidade" ~: Rio (-2) ~=? randomvelocidade 24 (Rio 0) (Rio 2),
+                "randomvelocidade" ~: Rio (-1) ~=? randomvelocidade 15 (Rio 0) (Rio 2),
+                "randomvelocidade" ~: Rio (1) ~=? randomvelocidade 24 (Rio 0) (Rio (-2)),
+                "randomvelocidade" ~: Rio (2) ~=? randomvelocidade 15 (Rio 0) (Rio (-2)),
+                "randomvelocidade" ~: Rio (-1) ~=? randomvelocidade 5 (Rio 0) (Relva),
+                "randomvelocidade" ~: Rio (1) ~=? randomvelocidade 6 (Rio 0) (Estrada 2),
+                "randomvelocidade" ~: Rio (-2) ~=? randomvelocidade 7 (Rio 0) (Relva),
+                "randomvelocidade" ~: Rio (2) ~=? randomvelocidade 8 (Rio 0) (Estrada 2),
+                "randomvelocidade" ~: Estrada (-1) ~=? randomvelocidade 5 (Estrada 0) (Relva),
+                "randomvelocidade" ~: Estrada (1) ~=? randomvelocidade 6 (Estrada 0) (Estrada 2),
+                "randomvelocidade" ~: Estrada (-2) ~=? randomvelocidade 7 (Estrada 0) (Relva),
+                "randomvelocidade" ~: Estrada (2) ~=? randomvelocidade 8 (Estrada 0) (Estrada 2),
+                "proximosObstaculosValidos" ~: [Arvore,Nenhum] ~=? proximosObstaculosValidos 4 (Relva,[Nenhum,Arvore]),
+                "proximosObstaculosValidos" ~: [Nenhum] ~=? proximosObstaculosValidos 4 (Relva,[Arvore,Arvore]),
+                "proximosObstaculosValidos" ~: [] ~=? proximosObstaculosValidos 4 (Relva,[Arvore,Arvore,Nenhum,Nenhum]),
+                "proximosObstaculosValidos" ~: [Tronco,Nenhum] ~=? proximosObstaculosValidos 4 (Rio 1,[]),
+                "proximosObstaculosValidos" ~: [Tronco,Nenhum] ~=? proximosObstaculosValidos 4 (Rio 1,[Nenhum,Tronco]),
+                "proximosObstaculosValidos" ~: [Nenhum] ~=? proximosObstaculosValidos 7 (Rio 1,[Tronco,Tronco,Tronco,Tronco,Tronco]),
+                "proximosObstaculosValidos" ~: [Tronco,Nenhum] ~=? proximosObstaculosValidos 7 (Rio 1,[Tronco,Tronco,Nenhum,Tronco,Tronco]),
+                "proximosObstaculosValidos" ~: [] ~=? proximosObstaculosValidos 4 (Rio 1,[Nenhum,Tronco,Nenhum,Tronco]),
+                "proximosObstaculosValidos" ~: [Carro,Nenhum] ~=? proximosObstaculosValidos 4 (Estrada 1,[]),
+                "proximosObstaculosValidos" ~: [Carro,Nenhum] ~=? proximosObstaculosValidos 4 (Estrada 1,[Nenhum,Carro]),
+                "proximosObstaculosValidos" ~: [Nenhum] ~=? proximosObstaculosValidos 5 (Estrada 1,[Carro,Carro,Carro]),
+                "proximosObstaculosValidos" ~: [Carro,Nenhum] ~=? proximosObstaculosValidos 7 (Estrada 1,[Carro,Carro,Nenhum,Carro,Carro]),
+                "proximosObstaculosValidos" ~: [] ~=? proximosObstaculosValidos 4 (Estrada 1,[Nenhum,Carro,Nenhum,Carro]),
+                "escolherobstaculo" ~: Nenhum ~=? escolherobstaculo 6 4 (Rio 1,[]),
+                "escolherobstaculo" ~: Tronco ~=? escolherobstaculo 3 4 (Rio 1,[]),
+                "escolherobstaculo" ~: Nenhum ~=? escolherobstaculo 7 4 (Rio 1,[]),
+                "listarobstaculos" ~: [Tronco,Tronco,Nenhum,Tronco] ~=? listarobstaculos 45 4 (Rio 1),
+                "listarobstaculos" ~: [Carro,Nenhum,Carro,Nenhum,Nenhum] ~=? listarobstaculos 87 5 (Estrada 1),
+                "listarobstaculos" ~: [Arvore,Nenhum,Nenhum] ~=? listarobstaculos 57 3 (Relva)
+               ]
